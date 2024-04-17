@@ -99,7 +99,7 @@ def convert_words_to_phonemes(words, model, dictionary, cuda):
                 break
 
         phonemized_words.append({
-            'grapheme': input_word,
+            'graphemes': input_word,
             'phonemes': ''.join([phoneme.decode('utf-8') for phoneme in phonemes])
         })
     
@@ -122,14 +122,14 @@ dictionary = Dictionary()
 for byte in range(256):
     dictionary.add_word(byte.to_bytes(1, byteorder='little'), freq=0)
 
-prompts = [
+words = [
     'постійно',
     'карасем',
 ]
 
-phonemized_words = convert_words_to_phonemes(prompts, model, dictionary, cuda)
+phonemized_words = convert_words_to_phonemes(words, model, dictionary, cuda)
 
 for word in phonemized_words:
-    print('Grapheme:', word['grapheme'])
+    print('Graphemes:', word['graphemes'])
     print('Phonemes:', word['phonemes'].strip())
     print('---')
